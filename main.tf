@@ -15,7 +15,7 @@ provider "proxmox" {
 }
 
 resource "proxmox_vm_qemu" "test_server" {
-  count            = 1
+  count            = 0
   name             = "test-vm-${count.index + 1}"
   target_node      = var.pm_host
   agent            = 1
@@ -28,9 +28,12 @@ resource "proxmox_vm_qemu" "test_server" {
   nameserver       = "1.1.1.1 8.8.8.8"
   ipconfig0        = "ip=192.168.178.100/24,gw=192.168.178.1,ip6=dhcp"
   skip_ipv6        = true
+  ciupgrade        = true
+  ciuser           = "root"
+  cipassword       = "password"
 
   serial {
-    id = 1
+    id = 0
   }
 
   disks {
